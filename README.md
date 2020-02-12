@@ -5,7 +5,7 @@ Simple password strength meter for React Native.
 [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-![Pass GIF](https://github.com/ezranbayantemur/react-native-passmeter/assets/passwordExample.gif)
+![Pass GIF](https://github.com/ezranbayantemur/react-native-passmeter/blob/master/assets/passwordExample.gif)
 
 ## Description
 
