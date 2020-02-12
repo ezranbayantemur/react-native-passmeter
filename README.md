@@ -4,7 +4,15 @@ Simple password strength meter for React Native.
 
 ## Description
 
-PassMeter has 5 level of security. Password string can be at least 4 character.
+PassMeter has 5 level of security. It's checks the typed password string has any upper case, lower case, numbers and special characters. Password string can be at least 4 character.
+
+| Strength Level |                                   Description                                    |                                       Example |
+| -------------- | :------------------------------------------------------------------------------: | --------------------------------------------: |
+| 0              |         Length of the password is below then gived or default minLenght          |                        "ac", "A2b", "1&", ... |
+| 1              | Password has at least one upper case, lower case, numbers and special characters |          "example", "PASSWORD", "%+%&/!", ... |
+| 2              |               Password contains only two condition of the required               |     "exAmpLe", "pa22w0rd", "PA\$\$W%RD!", ... |
+| 3              |              Password contains only three condition of the required              |   "3xAmpL3", "^!22w0rd&6", "pA\$\$W%RD!", ... |
+| 4              |                 Password contains all of the required conditions                 | "eX@mpL3", "^P@22w0rd", "pA22\$\$W%R1D!", ... |
 
 ## Installation
 
@@ -25,7 +33,9 @@ import React, { useState } from "react";
 import { SafeAreaView, TextInput } from "react-native";
 import PassMeter from "react-native-passmeter";
 
-const passLabels = ["Too Short", "Weak", "Normal", "Strong", "Secure"];
+const MAX_LEN = 15,
+  MIN_LEN = 6,
+  PASS_LABELS = ["Too Short", "Weak", "Normal", "Strong", "Secure"];
 
 export default App = () => {
   const [password, setPassword] = useState("");
@@ -38,7 +48,13 @@ export default App = () => {
         secureTextEntry
         onChangeText={password => setPassword(password)}
       />
-      <PassMeter pass={password} labels={passLabels} />
+      <PassMeter
+        showLabels
+        password={password}
+        maxLength={MAX_LEN}
+        minLength={MIN_LEN}
+        labels={PASS_LABELS}
+      />
     </SafeAreaView>
   );
 };
@@ -57,7 +73,7 @@ const styles = {
 
 ## Properties
 
-| Prop       |  Tyoe   |         Description          | isRequired | Default Value |
+| Prop       |  Type   |         Description          | isRequired | Default Value |
 | ---------- | :-----: | :--------------------------: | ---------: | :-----------: |
 | password   | String  |        Typed password        |       true |               |
 | labels     |  Array  | Strength levels of password  |       true |               |
