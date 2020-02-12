@@ -2,6 +2,11 @@
 
 Simple password strength meter for React Native.
 
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
+![Pass GIF](https://github.com/ezranbayantemur/react-native-passmeter/assets/passwordExample.gif)
+
 ## Description
 
 PassMeter has 5 level of security. It's checks the typed password string has any upper case, lower case, numbers and special characters. Password string can be at least 4 character.
@@ -26,7 +31,7 @@ or
 yarn add react-native-passmeter
 ```
 
-## Example Usage
+## Usage
 
 ```javascript
 import React, { useState } from "react";
@@ -80,3 +85,13 @@ const styles = {
 | minLength  | Number  |  Minimum length of password  |      false |       4       |
 | maxLength  | Number  |  Maximum length of password  |      false |      15       |
 | showLabels | Boolean | Visibilty of strength labels |      false |     true      |
+
+## **@0.0.5**
+
+# Contribute
+
+Feel free to contribute, any PR will be welcomed!
+
+# LICENSE
+
+**MIT**
