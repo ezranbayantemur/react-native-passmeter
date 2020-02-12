@@ -14,18 +14,18 @@ const PassMeter = props => {
         [animateColor, setAnimateColor] = useState(new Animated.Value(0))
 
     useEffect(() => {
-        Animated.spring(animateVal, { bounciness: 15, toValue: barLength * (props.pass.length / 15) }).start()
+        Animated.spring(animateVal, { bounciness: 15, toValue: barLength * (props.password.length / props.maxLength) }).start()
         let passPoint = 0
 
-        if (props.pass.length > 0 && props.pass.length < 6)
+        if (props.password.length > 0 && props.password.length < props.minLength)
             setPassStat(props.labels[0])
         else {
-            regexArr.forEach(rgx => rgx.test(props.pass) ? passPoint += 1 : null)
+            regexArr.forEach(rgx => rgx.test(props.password) ? passPoint += 1 : null)
             setPassStat(props.labels[passPoint])
         }
         Animated.timing(animateColor, { toValue: passPoint, duration: 300 }).start()
 
-    }, [props.pass])
+    }, [props.password])
 
     const interpolateColor = animateColor.interpolate({
         inputRange: [0, 4],
@@ -36,7 +36,13 @@ const PassMeter = props => {
         <View style={{ alignSelf: 'center' }}>
             <View style={styles.backBar} />
             <Animated.View style={[styles.mainBar, { backgroundColor: interpolateColor, width: animateVal }]} />
-            {props.pass.length != 0 ? <Animated.Text style={{ margin: 10, marginTop: 5, color: interpolateColor }}>{passStat}</Animated.Text> : null}
+            {
+                props.showLabels ?
+                    props.password.length != 0 ?
+                        <Animated.Text style={{ margin: 10, marginTop: 5, color: interpolateColor }}>{passStat}</Animated.Text>
+                        : null
+                    : null
+            }
         </View>
     )
 }
@@ -57,8 +63,17 @@ const styles = {
 }
 
 PassMeter.propTypes = {
-    pass: PropTypes.string,
-    labels: PropTypes.array
+    minLength: PropTypes.number,
+    showLabels: PropTypes.bool,
+    maxLength: PropTypes.number,
+    labels: PropTypes.array.isRequired,
+    password: PropTypes.string.isRequired
+}
+
+PassMeter.defaultProps = {
+    minLength: 4,
+    maxLength: 15,
+    showLabels: true
 }
 
 export default PassMeter

@@ -2,6 +2,10 @@
 
 Simple password strength meter for React Native.
 
+## Description
+
+PassMeter has 5 level of security. Password string can be at least 4 character.
+
 ## Installation
 
 ```
@@ -53,7 +57,10 @@ const styles = {
 
 ## Properties
 
-| Prop   |  Type  | isRequired |
-| ------ | :----: | ---------: |
-| pass   | String |        Yes |
-| labels | Array  |        Yes |
+| Prop       |  Tyoe   |         Description          | isRequired | Default Value |
+| ---------- | :-----: | :--------------------------: | ---------: | :-----------: |
+| password   | String  |        Typed password        |       true |               |
+| labels     |  Array  | Strength levels of password  |       true |               |
+| minLength  | Number  |  Minimum length of password  |      false |       4       |
+| maxLength  | Number  |  Maximum length of password  |      false |      15       |
+| showLabels | Boolean | Visibilty of strength labels |      false |     true      |

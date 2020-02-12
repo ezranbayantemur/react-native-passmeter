@@ -1,6 +1,6 @@
 {
   "name": "react-native-passmeter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple password strength meter!",
   "main": "index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   ],
   "author": "Ezran Bayantemur",
   "license": "ISC",
-  "dependencies": {
+  "peerDependencies": {
     "react": "^16.12.0",
     "react-native": "^0.61.5"
   }
