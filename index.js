@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Dimensions, Animated } from 'react-native'
+import { View, Dimensions, Animated, ViewPropTypes } from 'react-native'
 import PropTypes from 'prop-types'
 
 const
@@ -14,7 +14,11 @@ const PassMeter = props => {
         [animateColor, setAnimateColor] = useState(new Animated.Value(0))
 
     useEffect(() => {
-        Animated.spring(animateVal, { bounciness: 15, toValue: barLength * (props.password.length / props.maxLength) }).start()
+        Animated.spring(animateVal, {
+            bounciness: 15,
+            toValue: barLength * (props.password.length / props.maxLength),
+            useNativeDriver: false,
+        }).start()
         let passPoint = 0
 
         if (props.password.length > 0 && props.password.length < props.minLength)
@@ -23,18 +27,22 @@ const PassMeter = props => {
             regexArr.forEach(rgx => rgx.test(props.password) ? passPoint += 1 : null)
             setPassStat(props.labels[passPoint])
         }
-        Animated.timing(animateColor, { toValue: passPoint, duration: 300 }).start()
+        Animated.timing(animateColor, {
+            toValue: passPoint,
+            duration: 300,
+            useNativeDriver: false,
+        }).start()
 
     }, [props.password])
 
     const interpolateColor = animateColor.interpolate({
         inputRange: [0, 4],
-        outputRange: ['rgb(255,0,0)', 'rgb(0, 255, 0)']
+        outputRange: [props.fromColor, props.toColor]
     })
 
     return (
         <View style={{ alignSelf: 'center' }}>
-            <View style={styles.backBar} />
+            <View style={[styles.backBar, { backgroundColor: props.backgroundColor }]} />
             <Animated.View style={[styles.mainBar, { backgroundColor: interpolateColor, width: animateVal }]} />
             {
                 props.showLabels ?
@@ -49,7 +57,6 @@ const PassMeter = props => {
 
 const styles = {
     backBar: {
-        backgroundColor: 'gray',
         width: deviceWindow.width * 0.9,
         height: 10,
         borderRadius: 25
@@ -67,13 +74,19 @@ PassMeter.propTypes = {
     showLabels: PropTypes.bool,
     maxLength: PropTypes.number,
     labels: PropTypes.array.isRequired,
-    password: PropTypes.string.isRequired
+    password: PropTypes.string.isRequired,
+    backgroundColor: ViewPropTypes.style,
+    fromColor: ViewPropTypes.style,
+    toColor: ViewPropTypes.style,
 }
 
 PassMeter.defaultProps = {
     minLength: 4,
     maxLength: 15,
-    showLabels: true
+    showLabels: true,
+    backgroundColor: 'gray',
+    fromColor: 'red',
+    toColor: 'green',
 }
 
 export default PassMeter
